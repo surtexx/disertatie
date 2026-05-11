@@ -44,6 +44,8 @@ jobs:
               with:
                   python-version: "3.14"
 
+            - run: pip install requests asyncio github-copilot-sdk
+
             - name: Filter False Positives (Dry Run)
               run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }}
 
@@ -63,6 +65,8 @@ jobs:
               uses: actions/setup-python@v5
               with:
                   python-version: "3.14"
+
+            - run: pip install requests asyncio github-copilot-sdk
 
             - name: Filter False Positives
               run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --apply
