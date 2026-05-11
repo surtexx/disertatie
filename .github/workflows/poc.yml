@@ -17,6 +17,9 @@ jobs:
         name: sonarqube-scan
         runs-on: ubuntu-latest
         if: ${{ inputs.TRIGGER_NEW_SCAN == 'true' }}
+        env:
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -39,6 +42,10 @@ jobs:
         runs-on: ubuntu-latest
         if: always()
         needs: sonarqube-scan
+        env:
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
         steps:
             - name: Checkout code
@@ -61,6 +68,10 @@ jobs:
         runs-on: ubuntu-latest
         needs: filter-fp-dry-run
         environment: manual-approval
+        env:
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
         steps:
             - name: Checkout code
