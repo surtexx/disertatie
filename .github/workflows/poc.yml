@@ -40,6 +40,7 @@ jobs:
     filter-fp-dry-run:
         name: filter-fp-dry-run
         runs-on: ubuntu-latest
+        if: always()
         needs: sonarqube-scan
         env:
             SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -65,6 +66,7 @@ jobs:
     filter-fp:
         name: filter-fp
         runs-on: ubuntu-latest
+        if: always()
         needs: filter-fp-dry-run
         environment: manual-approval
         env:
