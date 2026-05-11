@@ -2,7 +2,7 @@ import os
 import json
 import requests
 import asyncio
-from copilot import CopilotClient, SubprocessConfig
+from copilot import CopilotClient
 from copilot.session import PermissionHandler
 import argparse
 import re
@@ -56,7 +56,7 @@ async def main():
     
     args = parser.parse_args()
     
-    sonarqube_url = "http://localhost:9000"
+    sonarqube_url = os.getenv("SONAR_HOST_URL")
     token = os.getenv("SONAR_TOKEN")
     
     project_keys = []
