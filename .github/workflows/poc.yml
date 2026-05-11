@@ -7,12 +7,16 @@ on:
                 description: "SonarQube Project Key"
                 required: true
                 type: string
+            TRIGGER_NEW_SCAN:
+                description: "Trigger a new SonarQube scan (true/false)"
+                required: true
+                type: boolean
 
 jobs:
     sonarqube-scan:
         name: sonarqube-scan
         runs-on: ubuntu-latest
-
+        if: ${{ inputs.TRIGGER_NEW_SCAN == 'true' }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -33,6 +37,7 @@ jobs:
     filter-fp-dry-run:
         name: filter-fp-dry-run
         runs-on: ubuntu-latest
+        if: always()
         needs: sonarqube-scan
 
         steps:
