@@ -1,0 +1,68 @@
+name: POC
+
+on:
+    workflow_dispatch:
+        inputs:
+            PROJECT_KEY:
+                description: "SonarQube Project Key"
+                required: true
+                type: string
+
+jobs:
+    sonarqube-scan:
+        name: sonarqube-scan
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Shallow clones should be disabled for better analysis
+
+            - name: SonarQube Scan
+              uses: sonarsource/sonarqube-scan-action@master
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+              with:
+                  projectBaseDir: ${{ inputs.PROJECT_KEY }}
+                  args: >
+                      -Dsonar.projectKey=${{ inputs.PROJECT_KEY }}
+
+    filter-fp-dry-run:
+        name: filter-fp-dry-run
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Shallow clones should be disabled for better analysis
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.14"
+
+            - name: Filter False Positives (Dry Run)
+              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }}
+
+    filter-fp:
+        name: filter-fp
+        runs-on: ubuntu-latest
+        needs: filter-fp-dry-run
+        environment: manual-approval
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.14"
+
+            - name: Filter False Positives
+              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --apply
