@@ -94,7 +94,7 @@ async def main():
 
             if args.apply:
                 print("Applying false positive markings in SonarQube...")
-                fp_issues = set(re.findall(r"\w+:S\d{4}", response.data.content))
+                fp_issues = set(re.findall(r"\w+:S\d+", response.data.content))
                 for issue in fp_issues:
                     issue_key = issues.get(issue)
                     mark_response = requests.post(
