@@ -1,0 +1,60 @@
+[submodule "angular"]
+	path = angular
+	url = https://github.com/angular/angular.git
+[submodule "axios"]
+	path = axios
+	url = https://github.com/axios/axios.git
+[submodule "bootstrap"]
+	path = bootstrap
+	url = https://github.com/twbs/bootstrap.git
+[submodule "go"]
+	path = go
+	url = https://github.com/golang/go.git
+[submodule "godot"]
+	path = godot
+	url = https://github.com/godotengine/godot.git
+[submodule "kubernetes"]
+	path = kubernetes
+	url = https://github.com/kubernetes/kubernetes.git
+[submodule "linux"]
+	path = linux
+	url = https://github.com/torvalds/linux.git
+[submodule "neovim"]
+	path = neovim
+	url = https://github.com/neovim/neovim.git
+[submodule "node"]
+	path = node
+	url = https://github.com/nodejs/node.git
+[submodule "nvm"]
+	path = nvm
+	url = https://github.com/nvm-sh/nvm.git
+[submodule "ohmyzsh"]
+	path = ohmyzsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "pytorch"]
+	path = pytorch
+	url = https://github.com/pytorch/pytorch.git
+[submodule "react"]
+	path = react
+	url = https://github.com/facebook/react.git
+[submodule "rust"]
+	path = rust
+	url = https://github.com/rust-lang/rust.git
+[submodule "tensorflow"]
+	path = tensorflow
+	url = https://github.com/tensorflow/tensorflow.git
+[submodule "thefuck"]
+	path = thefuck
+	url = https://github.com/nvbn/thefuck.git
+[submodule "transformers"]
+	path = transformers
+	url = https://github.com/huggingface/transformers.git
+[submodule "vscode"]
+	path = vscode
+	url = https://github.com/microsoft/vscode.git
+[submodule "vue"]
+	path = vue
+	url = https://github.com/vuejs/vue.git
+[submodule "youtube-dl"]
+	path = youtube-dl
+	url = https://github.com/ytdl-org/youtube-dl.git
