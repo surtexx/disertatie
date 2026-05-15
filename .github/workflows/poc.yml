@@ -11,6 +11,16 @@ on:
                 description: "Trigger a new SonarQube scan (true/false)"
                 required: true
                 type: boolean
+            MODEL:
+                description: "Model to use for analysis (default: gpt-4.1)"
+                type: choice
+                default: "gpt-4.1"
+                options:
+                    - "gpt-4.1"
+                    - "gpt-5.2"
+                    - "gpt-5.4"
+                    - "claude-sonnet-4.5"
+                    - "claude-sonnet-4.6"
 
 jobs:
     sonarqube-scan:
