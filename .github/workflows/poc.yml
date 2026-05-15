@@ -61,7 +61,13 @@ jobs:
             - run: pip install requests asyncio github-copilot-sdk
 
             - name: Filter False Positives (Dry Run)
-              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }}
+              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --output results.txt
+
+            - name: Save results as artifacts
+              uses: actions/upload-artifact@v7
+              with:
+                  name: filter-fp-dry-run-results
+                  path: results.txt
 
     filter-fp:
         name: filter-fp
@@ -87,5 +93,10 @@ jobs:
 
             - run: pip install requests asyncio github-copilot-sdk
 
+            - name: Download results artifacts
+              uses: actions/download-artifact@v7
+              with:
+                  name: filter-fp-dry-run-results
+
             - name: Filter False Positives
-              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --apply
+              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --apply --input results.txt
