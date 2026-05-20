@@ -63,21 +63,16 @@ jobs:
               with:
                   fetch-depth: 0 # Shallow clones should be disabled for better analysis
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version: "3.14"
-
-            - run: pip install requests asyncio github-copilot-sdk
-
             - name: Filter False Positives (Dry Run)
-              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --output results.txt
-
-            - name: Save results as artifacts
-              uses: actions/upload-artifact@v7
+              uses: surtexx/filter-fp@v1.0.0
               with:
-                  name: filter-fp-dry-run-results
-                  path: results.txt
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+                  PROJECT_KEY: ${{ inputs.PROJECT_KEY }}
+                  MODEL: ${{ inputs.MODEL }}
+                  APPLY: false
+                  OUTPUT_FILE: "results.txt"
 
     filter-fp:
         name: filter-fp
@@ -96,17 +91,13 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
+            - name: Filter False Positives (Apply)
+              uses: surtexx/filter-fp@v1.0.0
               with:
-                  python-version: "3.14"
-
-            - run: pip install requests asyncio github-copilot-sdk
-
-            - name: Download results artifacts
-              uses: actions/download-artifact@v7
-              with:
-                  name: filter-fp-dry-run-results
-
-            - name: Filter False Positives
-              run: python3 filter_fp.py --project_key ${{ inputs.PROJECT_KEY }} --apply --input results.txt
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+                  PROJECT_KEY: ${{ inputs.PROJECT_KEY }}
+                  MODEL: ${{ inputs.MODEL }}
+                  APPLY: true
+                  INPUT_FILE: "results.txt"
