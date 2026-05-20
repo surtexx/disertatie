@@ -64,7 +64,7 @@ jobs:
                   fetch-depth: 0 # Shallow clones should be disabled for better analysis
 
             - name: Filter False Positives (Dry Run)
-              uses: surtexx/filter-fp@v1.0.0
+              uses: surtexx/filter-fp@v1.0.1
               with:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -92,7 +92,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Filter False Positives (Apply)
-              uses: surtexx/filter-fp@v1.0.0
+              uses: surtexx/filter-fp@v1.0.1
               with:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
